@@ -1,38 +1,49 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import { Button,Input } from '@material-ui/core';
-import withModal from '../HOCs/withModal';
+import {useDispatch} from 'react-redux';
+import MyModal from './MyModal';
+import {signIn} from '../actions/userActions';
+import {Context} from '../contextApi/context'
+import '../css/Login.css';
 function Login() {
+    const {
+        openSignIn,
+        setOpenSignIn,
+        
+    }=useContext(Context);
     const [email,setEmail]=useState('');
-    const [username,setUsrname]=useState('');
-    const [user,setUser]=useState(null);
     const [password,setPassword]=useState('');
+    const dispatch = useDispatch();
+      const handleClose = () => {
+        setOpenSignIn(false);
+      };
+      
     return (
         <div>
-             <form className="App__signup">
-       <center>
-            <img className="App__headerImage"
-            src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" 
-            alt="logo"/>
-                </center>
-            <Input placeholder="username"
-            type="text"
-            value={username}
-            onChange={e=>setUsrname(e.target.value)}
-            />
-            <Input placeholder="email"
-            type="text"
-            value={email}
-            onChange={e=>setEmail(e.target.value)}
-            />
-            <Input placeholder="password"
-            type="text"
-            value={password}
-            onChange={e=>setPassword(e.target.value)}
-            />
-            <Button>Sign Up</Button>
-            </form>
+            <MyModal open={openSignIn} handleClose={handleClose}>
+
+               <form className="App__signup">
+                    <center>
+                    <img 
+                    className="header_Image" 
+                    src="https://imgak.mmtcdn.com/pwa_v3/pwa_hotel_assets/header/logo@2x.png"  
+                    alt="logo"/>
+                        </center>
+                    <Input placeholder="email"
+                    type="text"
+                    value={email}
+                    onChange={e=>setEmail(e.target.value)}
+                    />
+                    <Input placeholder="password"
+                    type="text"
+                    value={password}
+                    onChange={e=>setPassword(e.target.value)}
+                    />
+                    <Button onClick={()=>dispatch(signIn(email,password))}>Sign In</Button>
+                </form>            
+            </MyModal>
         </div>
     )
 }
 
-export default withModal(Login,{defaultOnValue: false});
+export default Login

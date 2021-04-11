@@ -1,0 +1,4 @@
+.App__signup{
+    display: flex;
+    flex-direction: column;
+  }

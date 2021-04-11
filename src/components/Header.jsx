@@ -1,10 +1,20 @@
-import React from 'react'
+import React,{useContext} from 'react';
+import {useSelector} from 'react-redux'
 import HotelIcon from '@material-ui/icons/Hotel';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import FlightIcon from '@material-ui/icons/Flight';
-import { Button,Input } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import {Context} from '../contextApi/context';
+import {auth} from '../firebse'
 import '../css/Header.css'
+
 function Header() {
+    const {
+        setOpenSignIn,
+        setOpenSignUp
+    }=useContext(Context);
+    const user = useSelector(state =>state.userReducer);
+    console.log(user.user)
     return (
         <div className="header">
            <section className="header_menu">
@@ -28,10 +38,18 @@ function Header() {
                 </div>
             </section>
 
-            <section className="App__loginContainer">
-            <Button>Sign In</Button>
-            <Button>Sign Up</Button>
-            </section>
+            
+            
+                {
+                    user.user? <Button onClick={()=>auth.signOut()}>Logout</Button>:
+                    (
+                 <section className="App__loginContainer">
+                    <Button onClick={()=>setOpenSignIn(true)}>Sign In</Button>
+                    <Button onClick={()=>setOpenSignUp(true)}>Sign Up</Button>
+                    </section>)
+                }
+            
+            
        </div>
     )
 }
