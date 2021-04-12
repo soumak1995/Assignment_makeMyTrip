@@ -21,6 +21,8 @@ function getModalStyle() {
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      outline:'none',
+      borderStyle:'none'
     },
   }));
 function MyModal(props) {
@@ -35,7 +37,7 @@ function MyModal(props) {
                     onClose={props.handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
-                    disableBackdropClick
+                    //disableBackdropClick
                 >
                  <div style={modalStyle} className={classes.paper}>
                     {props.children}

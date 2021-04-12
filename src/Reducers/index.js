@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import countReducer from './countReducer';
 import userReducer from './userReducer';
+import {villaReducer} from './villasReducer'
 export default combineReducers({
-    countReducer,
-    userReducer
+    userReducer,
+    villaReducer
 });

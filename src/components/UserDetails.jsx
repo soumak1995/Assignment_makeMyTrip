@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react';
+import React,{useState,useContext} from 'react';
 import {Context} from '../contextApi/context'
 import {useDispatch,useSelector} from 'react-redux'
 import Radio from '@material-ui/core/Radio';
@@ -11,6 +11,7 @@ import Switch from '@material-ui/core/Switch';
 import { Button,Input } from '@material-ui/core';
 import MyModal from "./MyModal";
 import {submitUserDetails} from '../actions/userActions'
+import '../css/UploadProp.css';
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -50,13 +51,8 @@ const handleClose = () => {
         dob,
         email:user.user.email
     }));
+    setUserDetailsModal(false);
   }
-  useEffect(() => {
-    if(user?.userDetails!==null){
-        setUserDetailsModal(false);
-    }
-  }, [user?.userDetails]);
-  console.log(user?.user)
 const classes = useStyles();
     return (
        
@@ -98,8 +94,9 @@ const classes = useStyles();
                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />} 
                         label="Host"
-                    />
-                <Button onClick={submit}>Submit</Button>
+                      />
+                   
+                  <Button onClick={submit}>Submit</Button>
                 </form>
             
     </MyModal>

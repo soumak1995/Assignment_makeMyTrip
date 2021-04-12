@@ -5,6 +5,7 @@ function ContextProvider({children}) {
     const [openSignIn, setOpenSignIn] = useState(false);
     const [openSignUp, setOpenSignUp] = useState(false);
     const [userDetailsModal, setUserDetailsModal] = useState(false);
+    const [uploadModal, setuploadModal] = useState(false);
     return (
         <Context.Provider value={{
             openSignIn,
@@ -12,7 +13,9 @@ function ContextProvider({children}) {
             setOpenSignIn,
             setOpenSignUp,
             userDetailsModal,
-            setUserDetailsModal
+            setUserDetailsModal,
+            uploadModal,
+            setuploadModal
         }}>
             {children}
         </Context.Provider>

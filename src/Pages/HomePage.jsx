@@ -1,21 +1,28 @@
-import React,{useContext,useEffect,useState} from 'react';
-import {useDispatch,useSelector } from 'react-redux';
+import React,{useContext,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
 import Login from '../components/Login'
 import SignUp from '../components/SignUp';
 import {Context} from '../contextApi/context';
-import {auth,db} from '../firebse';
-import {authUser,addUserDetails} from '../actions/userActions';
+import {auth} from '../firebse';
+import {authUser} from '../actions/userActions';
+import{fatchVillas} from '../actions/villasAction'
 import UserDetails from '../components/UserDetails';
+import Button from '@material-ui/core/Button';
+import UploadProp from '../components/UplaodProp';
+import VillaCard from '../components/VillaCard';
+import '../css/HomePage.css'
 function HomePage() {
   const user = useSelector(state =>state.userReducer);
+  const villas = useSelector(state =>state.villaReducer);
     const {
         openSignIn,
         openSignUp,
         setOpenSignIn,
-        setOpenSignUp
+        setOpenSignUp,
+        uploadModal,
+       setuploadModal
     }=useContext(Context);
     const dispatch=useDispatch();
-    const [users,setUsers]=useState(null);
     console.log(user?.user);
     useEffect(()=>{
         const unsubscribe = auth.onAuthStateChanged((User)=>{
@@ -36,33 +43,27 @@ function HomePage() {
             setOpenSignUp(false);
         } 
     }, [user?.user?.email]);
+    const PostVillas=()=>{
+      setuploadModal(true);
+    }
     useEffect(() => {
-     
-          const unsubscribe=db
-            .collection("users")
-            .doc(user?.user?.email)
-            .get().then((doc) => {
-              if (doc.exists) {
-                  console.log("Document data:", doc.data());
-              } else {
-                  // doc.data() will be undefined in this case
-                  console.log("No such document!");
-              }
-          }).catch((error) => {
-              console.log("Error getting document:", error);
-          })
-            // .onSnapshot((snapshot)=>{
-            //    setUsers(snapshot.docs.map(doc=>doc.data()));
-            // })
-            // console.log(users.find(user=>console.log(user.email,user?.user?.email)));
-            // if(users!==null){
-            //    dispatch(addUserDetails(users.find(user=>user.email===user?.user?.email)));
-            // }
-       
-    }, [user?.userDetails]);
+      dispatch(fatchVillas());
+    }, []);
+    console.log(villas);
     return (
-        <div>
-            <UserDetails/>
+        <div className="HomePage">
+          <section className="HomePage_left">
+              {user?.userDetails?.host && <Button variant="contained" color="primary" onClick={PostVillas}>
+                  Post Villas&Apts
+              </Button>}
+          </section>
+          <section className="HomePage_right">
+             {villas?.villas?.map((villa,index)=><VillaCard villa={villa} key={index}/>)}
+          </section>
+          
+         
+         { uploadModal && <UploadProp/>}
+          <UserDetails/>
           {openSignIn && <Login/>}
           {openSignUp && <SignUp/>}
         </div>

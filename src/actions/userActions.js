@@ -40,7 +40,10 @@ export const authUser = (user) => ({
 export const signIn = (email,password) => (dispatch) => {
      dispatch(dataLoading(true));
      return auth.signInWithEmailAndPassword(email,password)
-     .then(response=>dispatch(authUser(response.user.displayName)))
+     .then(response=>{
+         dispatch(authUser(response.user.displayName));
+         dispatch(getUserDetails(email));
+         })
      .catch((error)=>{
         dispatch(dataFailed(error.message));
         alert(error)
@@ -52,13 +55,28 @@ export const signIn = (email,password) => (dispatch) => {
     return  db.collection("users").doc(obj.email).set({
               ...obj
     }).then(response=>{
-        dispatch(addUserDetails(response));
+        dispatch(getUserDetails(obj.email));
     }).catch((error)=>{
         dispatch(dataFailed(error.message));
         alert(error)
      });
 };
-
+export const getUserDetails = (email)=>(dispatch)=>{
+    return  db
+    .collection("users")
+    .doc(email)
+    .get().then((doc) => {
+      if (doc.exists) {
+         dispatch(addUserDetails(doc.data()));
+          console.log("Document data:", doc.data());
+      } else {
+          console.log("No such document!");
+      }
+  }).catch((error) => {
+    dispatch(dataFailed(error));
+      console.log("Error getting document:", error);
+  })
+}
 export const addUserDetails = (data) => ({
     type:ADD_USER_DTAILS,
     payload: data

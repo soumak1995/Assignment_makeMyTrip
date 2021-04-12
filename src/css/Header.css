@@ -3,6 +3,18 @@ P{
     font-size: .700em;
     font-weight: 400;
 }
+a{
+  text-decoration: none !important;
+  color:inherit;
+}
+a:hover {
+  color:rgb(17, 106, 240);
+  text-decoration:none;
+  cursor:pointer;
+}
+ a:active {
+ color: rgb(17, 106, 240) !important;
+}
 .header{
     position: sticky;
     top:0;
@@ -37,4 +49,6 @@ P{
       margin-left: 10px;
       cursor: pointer;
   }
-  
+  ul {
+    list-style-type: none;
+}

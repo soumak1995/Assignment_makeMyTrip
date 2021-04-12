@@ -16,13 +16,13 @@ const userState = {
 export default function (state=userState, action) {
     switch(action.type){
         case DATA_LOADING:
-            return {...state, loading:'Loading...'};
+            return {...state, loading:'Loading...',error:''};
         case AUTH_USER:
-              return {...state, user:action.payload};
+              return {...state, user:action.payload,loading:'',error:''};
        case ADD_USER_DTAILS:
-       return {...state, userDetails:action.payload};
+       return {...state, userDetails:action.payload,loading:'',error:''};
         case  DATA_FAILED:
-             return {...state, error:action.payload};
+             return {...state, error:action.payload,loading:''};
         default:
             return state;
     }
