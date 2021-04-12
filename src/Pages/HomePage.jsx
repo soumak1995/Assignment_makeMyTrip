@@ -1,11 +1,11 @@
-import React,{useContext,useEffect} from 'react';
-import { connect,useDispatch,useSelector } from 'react-redux';
-import {count_increment, count_decrement} from '../actions/demoActions';
+import React,{useContext,useEffect,useState} from 'react';
+import {useDispatch,useSelector } from 'react-redux';
 import Login from '../components/Login'
 import SignUp from '../components/SignUp';
 import {Context} from '../contextApi/context';
-import {auth} from '../firebse';
-import {authUser} from '../actions/userActions';
+import {auth,db} from '../firebse';
+import {authUser,addUserDetails} from '../actions/userActions';
+import UserDetails from '../components/UserDetails';
 function HomePage() {
   const user = useSelector(state =>state.userReducer);
     const {
@@ -15,10 +15,9 @@ function HomePage() {
         setOpenSignUp
     }=useContext(Context);
     const dispatch=useDispatch();
-    console.log(openSignIn,openSignUp);
+    const [users,setUsers]=useState(null);
+    console.log(user?.user);
     useEffect(()=>{
-        setOpenSignIn(false);
-        setOpenSignUp(false);
         const unsubscribe = auth.onAuthStateChanged((User)=>{
            if(User){
            console.log(User)
@@ -30,18 +29,46 @@ function HomePage() {
          return ()=>{
           unsubscribe();
          }
-    },[user.user]);
+    },[user?.user]);
+    useEffect(() => {
+        if(user?.user!==null){
+            setOpenSignIn(false);
+            setOpenSignUp(false);
+        } 
+    }, [user?.user?.email]);
+    useEffect(() => {
+     
+          const unsubscribe=db
+            .collection("users")
+            .doc(user?.user?.email)
+            .get().then((doc) => {
+              if (doc.exists) {
+                  console.log("Document data:", doc.data());
+              } else {
+                  // doc.data() will be undefined in this case
+                  console.log("No such document!");
+              }
+          }).catch((error) => {
+              console.log("Error getting document:", error);
+          })
+            // .onSnapshot((snapshot)=>{
+            //    setUsers(snapshot.docs.map(doc=>doc.data()));
+            // })
+            // console.log(users.find(user=>console.log(user.email,user?.user?.email)));
+            // if(users!==null){
+            //    dispatch(addUserDetails(users.find(user=>user.email===user?.user?.email)));
+            // }
+       
+    }, [user?.userDetails]);
     return (
         <div>
+            <UserDetails/>
           {openSignIn && <Login/>}
           {openSignUp && <SignUp/>}
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    count:state.countReducer.count,
-})
 
 
-export default connect(mapStateToProps,{ count_increment, count_decrement })(HomePage)
+export default HomePage

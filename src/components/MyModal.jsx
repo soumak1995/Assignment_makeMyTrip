@@ -35,6 +35,7 @@ function MyModal(props) {
                     onClose={props.handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
+                    disableBackdropClick
                 >
                  <div style={modalStyle} className={classes.paper}>
                     {props.children}
