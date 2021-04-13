@@ -1,12 +1,12 @@
-import React,{useState}from 'react';
+import React,{useState,useContext}from 'react';
 import UserInfoCard from './UserInfoCard';
 import { Input } from '@material-ui/core';
 import {useDispatch,useSelector} from 'react-redux';
-import {bookVilla} from '../actions/villasAction';
+import {addBooking} from '../actions/villasAction';
+import {db} from '../firebse'
+import {Context} from '../contextApi/context'
 import '../css/PaymentCard.css'
-
 function PaymentCard({villaDetals}) {
-    const today=new Date().toLocaleDateString();
     const [cardName,setCardName]=useState('');
     const [cardNum,setCardNum]=useState('');
     const [expDate,setExpDate]=useState('');
@@ -16,22 +16,46 @@ function PaymentCard({villaDetals}) {
     const [checkout,setCheckout]=useState('');
     const [noOfGuest,setNoOfGuest]=useState(0);
     const dispatch = useDispatch();
+    const {
+        setOpen
+    }=useContext(Context);
     const user = useSelector(state =>state.userReducer);
     const handleSelect=(e)=>{
         setNoOfGuest(e.target.value);
     }
     const handlePayment=(e)=>{
        e.preventDefault();
-       dispatch(bookVilla({
-        guest,
-        checkin,
-        checkout,
-        noOfGuest,
-        amount:villaDetals.amount,
-        hostId:villaDetals.email,
-        GuestId:user.user.email,
-        status:false
-       }));
+         db.collection("Bookings").add({
+                guest,
+                checkin,
+                checkout,
+                noOfGuest,
+                amount:villaDetals?.amount,
+                hostId:villaDetals?.email,
+                NameOfVilla:villaDetals?.NameOfVilla,
+                GuestId:user?.user?.email,
+                status:false,
+                cancel:false,
+                id:villaDetals?.id
+            }).then(response=>{
+                dispatch(addBooking({
+                    guest,
+                    checkin,
+                    checkout,
+                    noOfGuest,
+                    amount:villaDetals?.amount,
+                    hostId:villaDetals?.email,
+                    GuestId:user?.user?.email,
+                    status:false,
+                    cancel:false,
+                    NameOfVilla:villaDetals?.NameOfVilla,
+                    id:villaDetals?.id
+                }));
+                setOpen(true);
+            }).catch((error)=>{
+              alert(error)
+            });
+    
     }
     console.log(villaDetals);
     return (

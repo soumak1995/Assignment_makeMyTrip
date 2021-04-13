@@ -1,17 +1,32 @@
 import React from 'react'
 import BathtubIcon from '@material-ui/icons/Bathtub';
+
+import {useSelector,useDispatch} from 'react-redux';
 import { Button } from '@material-ui/core';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import WifiIcon from '@material-ui/icons/Wifi';
 import PowerIcon from '@material-ui/icons/Power';
 import Rating from '@material-ui/lab/Rating';
 import CheckIcon from '@material-ui/icons/Check';
-import '../css/VillaCard.css'
+import {useHistory} from 'react-router-dom'
+import {deleteVillas} from '../actions/villasAction'
+import '../css/VillaCard.css';
 function VillaCard({villa}) {
+    const user = useSelector(state =>state.userReducer);;
+    const cottage = useSelector(state =>state.villaReducer);
+    const hostFlag=cottage?.villas?.find(k=>k.email===user?.user?.email);
+    const flag=cottage.bookingStatus?.find((v)=>v.id===villa.id);
+    const dispatch=useDispatch();
+    const history=useHistory();
     const handleBooking=(e)=>{
          e.preventDefault();
-
+        history.push(`/Villas/${villa.id}`)
     }
+    const handleRemove=(e)=>{
+        e.preventDefault();
+        dispatch(deleteVillas(villa.id));
+    }
+
     return (
         <div className="villa_card">
             <div className="villa_card__imgdiv">
@@ -34,22 +49,22 @@ function VillaCard({villa}) {
                <img className="villa_card__promo" src="https://promos.makemytrip.com/Hotels_product/Persuasion_Icons/MySafety3x.png" alt="promo"/>
                <a href="#" className="villa_card__msg">Self certified by property</a>
                <section className="villa_card__feature">
-                    <div className="center_align margin_left_right">
+                    {villa.feachers?.LivingRoom && <div className="center_align margin_left_right">
                         <BathtubIcon/>
                         <span className="villa_card__label">Living Room</span>
-                    </div>
-                    <div className="center_align margin_left_right">
+                    </div>}
+                   {villa.feachers?.freeWifi && <div className="center_align margin_left_right">
                         <WifiIcon/>
                         <span className="villa_card__label">Wifi</span>
-                    </div>
-                    <div className="center_align margin_left_right">
+                    </div>}
+                    {villa?.feachers?.DocOnCall && <div className="center_align margin_left_right">
                         <LocalHospitalIcon/>
                         <span className="villa_card__label">Doctor On Call</span>
-                    </div>
-                    <div className="center_align margin_left_right">
+                    </div>}
+                   {villa?.feachers?.PowerBkp && <div className="center_align margin_left_right">
                         <PowerIcon/>
                         <span className="villa_card__label">Power Backup</span>
-                    </div>
+                    </div>}
                </section>
            </section>
            <section className="villa_card_right">
@@ -59,13 +74,19 @@ function VillaCard({villa}) {
                     <span className="villa_card__label">Free Cancellation</span>
                 </div>
                 <div className="center_align margin_top">
-                    <h5> ₹ 1200</h5>
+                    <h5> {villa.amount}</h5>
                     <small>+ ₹ 399 taxes and fees</small>
                 </div>
                 <strong className="strong">Per Night</strong>
-                {true?<Button variant="outlined" 
-                color="primary" onClick={handleBooking}>Book Now</Button>:
-                <strong className="booking_status strong">BOOKED</strong>}
+                {user?.user?.email && !flag && !hostFlag?<Button variant="outlined" 
+                color="primary" onClick={handleBooking}>Book Now</Button>:""
+                }
+                {user?.user?.email &&  hostFlag?<Button variant="outlined" 
+                color="secondary" onClick={handleRemove}>Remove</Button>:""
+                }
+                {
+                   user?.user?.email && flag ?<strong className="booking_status strong">BOOKED</strong>:""
+                }
            </section>
         </div>
     )

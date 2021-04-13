@@ -11,7 +11,10 @@ import UserDetails from '../../components/UserDetails';
 import Button from '@material-ui/core/Button';
 import UploadProp from '../../components/UplaodProp';
 import VillaCard from '../..//components/VillaCard';
+import Notification from '../../components/Notification';
+import GuestNoti from '../../components/GuestNoti'
 import '../../css/HomePage.css'
+
 function HomePage() {
   const user = useSelector(state =>state.userReducer);
   const villas = useSelector(state =>state.villaReducer);
@@ -21,10 +24,9 @@ function HomePage() {
         setOpenSignIn,
         setOpenSignUp,
         uploadModal,
-       setuploadModal
+       setuploadModal,
     }=useContext(Context);
     const dispatch=useDispatch();
-    console.log(user?.user);
     useEffect(()=>{
         const unsubscribe = auth.onAuthStateChanged((User)=>{
            if(User){
@@ -50,33 +52,40 @@ function HomePage() {
     useEffect(() => {
       dispatch(fatchVillas());
     }, []);
-    console.log(villas);
+    let paymentDia=[];
+
+    if(villas.bookingStatus.length!==0)
+    paymentDia=villas.bookingStatus.filter(villa=>villa?.GuestId===user?.user?.email);
+    const notiFi=paymentDia?.filter(villa=>villa?.status || villa?.cancel);
+    console.log(notiFi);
     return (
         <div className="HomePage">
           <section className="HomePage_left">
               {user?.userDetails?.host && <Button variant="contained" color="primary" onClick={PostVillas}>
                   Post Villas&Apts
               </Button>}
+             {user?.userDetails?.host && villas?.bookingStatus 
+             && villas?.bookingStatus.map((book)=> <Notification className='show' book={book}/>)}
+             {
+               notiFi && !user?.userDetails?.host ? notiFi.map((notiData,index)=><GuestNoti key={index} className="show" notiData={notiData}/>):''
+            }
           </section>
           <section className="HomePage_right">
         
                 {villas?.villas?.map((villa,index)=>
-                    <Link to={`Villas/${villa.id}`} >
+                    
                         <VillaCard villa={villa} key={index}/>
-                    </Link>)}
-            
-             
+                    )}
           </section>
-          
-         
          { uploadModal && <UploadProp/>}
           <UserDetails/>
           {openSignIn && <Login/>}
           {openSignUp && <SignUp/>}
+          
         </div>
     )
 }
 
 
 
-export default HomePage
+export default React.memo(HomePage)

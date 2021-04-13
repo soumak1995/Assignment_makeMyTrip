@@ -1,4 +1,5 @@
 import React,{useState} from "react"
+
 const Context = React.createContext()
 
 function ContextProvider({children}) {
@@ -6,6 +7,11 @@ function ContextProvider({children}) {
     const [openSignUp, setOpenSignUp] = useState(false);
     const [userDetailsModal, setUserDetailsModal] = useState(false);
     const [uploadModal, setuploadModal] = useState(false);
+    const [open, setOpen] = useState(false);
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
     return (
         <Context.Provider value={{
             openSignIn,
@@ -15,7 +21,10 @@ function ContextProvider({children}) {
             userDetailsModal,
             setUserDetailsModal,
             uploadModal,
-            setuploadModal
+            setuploadModal,
+            open,
+            handleClose,
+            setOpen
         }}>
             {children}
         </Context.Provider>

@@ -7,3 +7,4 @@ export const ADD_VILLA ='ADD_VILLA';
 export const FATCH_VILLA='FATCH_VILLA';
 export const REMOVE_VILLA='REMOVE_VILLA';
 export const ADD_bOOKING='ADD_bOOKING';
+export const ADD_STATUS='ADD_STATUS';
