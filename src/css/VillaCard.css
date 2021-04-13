@@ -2,7 +2,7 @@ h4{
     font-weight: 900;
    
 }
-strong{
+.strong{
     font-weight: 700;
     font-size: .725em;
     color:#b6b2b2
@@ -25,13 +25,22 @@ small{
     padding: 1em;
 }
 .villa_card__img{
-    flex:0.2;
     object-fit: contain;
-    width:150px;
-    height: 150px;
+    width:200px;
+    height: 200px;
+}
+.villa_card__imgdiv{
+   position: relative;
+}
+.villa_card__imgveri{
+    position: absolute;
+    left: 0;
+    top:.7em;
+    height: 50px;
+    width: 50px;
 }
 .villa_card_left{
-    flex:0.8;
+    flex:1;
     margin: 0em 1em;
 }
 .villa_card__feature{
@@ -76,10 +85,28 @@ small{
     align-items: center;
     justify-content: space-between;
 }
-.villa_card_right_brkfst{
+
+.villa_card_right_brkfst, .villa_card_right_brkfst > .MuiSvgIcon-root{
     color:#1a7971
 }
+.villa_card__promo{
+   margin-top: 5px;
+   width: 200px;
+   object-fit: contain;
+}
+.villa_card__msg{
+    display: block;
+    font-size: .6em;
+    text-decoration: none;
 
- .villa_card_right_brkfst > .MuiSvgIcon-root{
-    color:#1a7971
+}
+.villa_card_right>.MuiButtonBase-root {
+    margin-top: 20px;
+}
+.margin_top{
+    margin-top: 30px;
+}
+.booking_status{
+    margin-top: 30px;
+    color: #1a7971;
 }

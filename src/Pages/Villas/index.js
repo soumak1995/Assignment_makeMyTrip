@@ -1,8 +1,9 @@
 import React,{useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
-import VillasPage from './VillasPage';
-import {fatchVillas} from '../actions/villasAction';
+import {fatchVillas} from '../../actions/villasAction';
+import HomePage from './HomePage';
+import PaymentPage from '../PaymentPage'
 function Villas(props) {
   const { path } = props.match;
   const dispatch = useDispatch();
@@ -11,11 +12,15 @@ function Villas(props) {
   }, []);
   return (
           <Switch>
-          <Route 
-              exact
-              path={`${path}/`}
-              component={VillasPage}
-          />
+              <Route 
+                  exact
+                  path={`${path}/`}
+                  component={HomePage}
+              />
+              <Route 
+                  path={"/Villas/:id"}
+                  component={PaymentPage}
+              />
          </Switch>
   );
 }

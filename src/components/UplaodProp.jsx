@@ -1,13 +1,13 @@
-import React,{useState,useContext,useEffect} from 'react';
-import {Context} from '../contextApi/context'
-import firebase from 'firebase'
-import {useDispatch,useSelector} from 'react-redux'
+import React,{useState,useContext,} from 'react';
+import {Context} from '../contextApi/context';
+import firebase from 'firebase';
+import {useDispatch,useSelector} from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Button,Input } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import {storage,db} from '../firebse';
-import {submitUserDetails,fatchVillas} from '../actions/villasAction'
+import {fatchVillas} from '../actions/villasAction'
 import MyModal from "./MyModal";
 
 function UplaodProp() {
@@ -20,6 +20,7 @@ function UplaodProp() {
     const [CoupleFrnd,setCoupleFrnd]=useState(false);
     const[image,setImage]=useState(null);
     const [progress,setProgress]=useState(0);
+    const [amount,setAmount]=useState('');
     const [feachers, setFeachers] =useState({
         LivingRoom: true,
         DocOnCall: false,
@@ -66,8 +67,9 @@ function UplaodProp() {
                       location,
                       CoupleFrnd,
                       feachers,
+                      amount,
                       HostName:user.user.displayName,
-                      email:user.user.email
+                      email:user.user.email,
                   }).then(res=>{
                     setuploadModal(false);
                     dispatch(fatchVillas());
@@ -103,6 +105,11 @@ function UplaodProp() {
                     value={location}
                     onChange={e=>setLocation(e.target.value)}
                     />
+                    <Input placeholder="Amount"
+                        type="text"
+                        value={amount}
+                        onChange={e=>setAmount(e.target.value)}
+                        />
                      <FormControlLabel
                             control={<Checkbox checked={feachers.LivingRoom} onChange={handleChange} name="LivingRoom" />}
                             label="Living Room"

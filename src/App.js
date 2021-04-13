@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-import HomePage from './Pages/HomePage';
 import Header from './components/Header';
 import {ContextProvider} from "./contextApi/context";
-import Villas from "./Pages/index";
+import Villas from "./Pages/Villas/index";
 function App() {
   return (
   <ContextProvider>
@@ -10,8 +9,11 @@ function App() {
           <Header/>
           <div className="App">
             <Switch>
-              <Route exact path='/' component={HomePage} />
-              <Route exact path='/Villas' component={Villas}/>
+              <Route path='/Villas' component={Villas} />
+             <Redirect 
+               exact
+              from={`/`} to={"/Villas"}
+              />
             </Switch>
           </div>
         </Router>

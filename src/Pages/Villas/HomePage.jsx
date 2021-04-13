@@ -1,16 +1,17 @@
 import React,{useContext,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
-import Login from '../components/Login'
-import SignUp from '../components/SignUp';
-import {Context} from '../contextApi/context';
-import {auth} from '../firebse';
-import {authUser} from '../actions/userActions';
-import{fatchVillas} from '../actions/villasAction'
-import UserDetails from '../components/UserDetails';
+import { Link } from 'react-router-dom';
+import Login from '../../components/Login'
+import SignUp from '../../components/SignUp';
+import {Context} from '../../contextApi/context';
+import {auth} from '../../firebse';
+import {authUser} from '../../actions/userActions';
+import{fatchVillas} from '../../actions/villasAction'
+import UserDetails from '../../components/UserDetails';
 import Button from '@material-ui/core/Button';
-import UploadProp from '../components/UplaodProp';
-import VillaCard from '../components/VillaCard';
-import '../css/HomePage.css'
+import UploadProp from '../../components/UplaodProp';
+import VillaCard from '../..//components/VillaCard';
+import '../../css/HomePage.css'
 function HomePage() {
   const user = useSelector(state =>state.userReducer);
   const villas = useSelector(state =>state.villaReducer);
@@ -58,7 +59,13 @@ function HomePage() {
               </Button>}
           </section>
           <section className="HomePage_right">
-             {villas?.villas?.map((villa,index)=><VillaCard villa={villa} key={index}/>)}
+        
+                {villas?.villas?.map((villa,index)=>
+                    <Link to={`Villas/${villa.id}`} >
+                        <VillaCard villa={villa} key={index}/>
+                    </Link>)}
+            
+             
           </section>
           
          

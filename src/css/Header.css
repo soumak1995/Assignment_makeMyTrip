@@ -3,17 +3,10 @@ P{
     font-size: .700em;
     font-weight: 400;
 }
-a{
-  text-decoration: none !important;
-  color:inherit;
-}
-a:hover {
-  color:rgb(17, 106, 240);
+.tab:hover {
+  color:#008cff;
   text-decoration:none;
   cursor:pointer;
-}
- a:active {
- color: rgb(17, 106, 240) !important;
 }
 .header{
     position: sticky;
@@ -48,7 +41,12 @@ a:hover {
       margin-right: 10px;
       margin-left: 10px;
       cursor: pointer;
+      position: relative;
   }
   ul {
     list-style-type: none;
+}
+.is-active{
+  border-bottom: 2px solid #008cff ;
+  color: #008cff;
 }

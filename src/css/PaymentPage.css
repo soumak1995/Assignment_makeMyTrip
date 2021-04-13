@@ -1,0 +1,86 @@
+.paymentPage_card{
+    width: 90%;
+    justify-content: space-between;
+}
+.paymentPage{
+    margin: 1.5em;
+    margin-left: 4em;
+}
+.paymentPage_left{
+    flex:.2;
+    width: 500px;
+}
+.paymentPage_img{
+    width: 500px;
+    height: 300px;
+    object-fit: contain;
+}
+.paymentPage_right{
+   
+}
+.paymentPage_right__up{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5em;
+    border: 1px solid #cccccc;
+}
+.paymentPage_right__bottom{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    border: 1px solid #cccccc;
+    margin-top: 5px;
+}
+.non_refund{
+    font-size: .75em;
+    font-weight: 500;
+   
+}
+.non_refund > .MuiSvgIcon-root{
+    color:#EE7660;
+}
+.room_only{
+    font-size: .75em;
+    font-weight: 500;
+    color:#1a7971;
+    margin-top: 5px;
+}
+.room_only > .MuiSvgIcon-root{
+    color:#1a7971;
+}
+.per_night{
+    display: block;
+    margin-top: 3px;
+}
+.paymentPage_right__up_left{
+    margin-right: 2em;
+}
+.paymentPage_right__up_right{
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+}
+.flex-end{
+    align-self: flex-end;
+}
+.deal_color{
+    color:#EE7660;
+   
+}
+.read_me{
+    font-weight: 700;
+    font-size: .75em;
+    margin-top: 10px;
+    color:royalblue
+}
+.para{
+    margin-top: 5px;
+    letter-spacing: .5px;
+}
+.font{
+    font-size: .75em;
+}
+.paymentPage_bottom{
+    display: flex;
+    align-items: center;
+}

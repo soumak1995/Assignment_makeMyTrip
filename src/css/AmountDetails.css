@@ -1,0 +1,58 @@
+.AmountDetails_card{
+    display: flex;
+    flex-direction: column;
+    flex: 0.27;
+    margin-left: 1em;
+}
+
+.AmountDetails_card_label{
+   font-size: .75em;
+   margin-right: 0px;
+   justify-self: flex-start;
+}
+.room_night{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.AmountDetails_card_value{
+  margin-left: 10px;
+  justify-self: flex-end;
+}
+.AmountDetails_card_details{
+    display: grid;
+    
+}
+.AmountDetails_card_right{
+    align-items: flex-end;
+}
+.AmountDetails_card_left{
+   margin-right: 20px;
+}
+.base_price{
+    margin:0px;
+    font-size: .7em;
+    font-weight: 700;
+    color: #cccccc;
+}
+.total_discount{
+    font-weight: 700;
+    color: #1a7971;
+}
+.AmountDetails_card_column{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:3px;
+    border-bottom: 1px solid #1a7971;
+}
+.AmountDetails_card_column:nth-of-type(5){
+    border-bottom: none;
+}
+.total{
+    color:#D52D0C;
+    font-weight: 700;
+}
+.total_label{
+    font-weight: 700;
+}

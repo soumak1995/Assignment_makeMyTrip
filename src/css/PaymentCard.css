@@ -1,0 +1,33 @@
+.payment_card{
+    display: grid;
+    grid-template-columns: 1em 300px 3em 300px 1em;
+    flex:.65;
+} 
+.payment_card_left{
+    display: flex;
+    flex-direction: column;
+    grid-column: 4;
+}
+  
+.btn{
+
+    display: inline-block;
+    padding: 1em 1.5em;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    border: 0;
+    cursor: pointer;
+    background-image: linear-gradient(
+96deg
+, #53b2fe, #065af3);
+color: #fff;
+margin-top: .5em;
+outline: none;
+}
+.btn:hover{
+    background-image: linear-gradient(
+96deg
+, #3c98e4, #0946b8);
+}
