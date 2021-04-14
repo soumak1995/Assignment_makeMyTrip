@@ -43,7 +43,7 @@ export const addBookingStatus = (bookingStatus) => ({
     return db.collection("Bookings").doc(obj.id).update({
         status:obj.status,
         cancel:obj.cancel
-    }).then((res)=>dispatch(deleteDoc(obj.id)))
+    })
     .catch(err=>alert(err))
   
 }
