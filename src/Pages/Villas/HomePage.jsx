@@ -1,7 +1,6 @@
 import React,{useContext,useEffect} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
-import Login from '../../components/Login'
+import Login from '../../components/Login';
 import SignUp from '../../components/SignUp';
 import {Context} from '../../contextApi/context';
 import {auth} from '../../firebse';
@@ -39,35 +38,35 @@ function HomePage() {
          return ()=>{
           unsubscribe();
          }
-    },[user?.user]);
+    },[user?.user,dispatch]);
     useEffect(() => {
         if(user?.user!==null){
             setOpenSignIn(false);
             setOpenSignUp(false);
         } 
-    }, [user?.user?.email]);
+    }, [user?.user,setOpenSignIn,setOpenSignUp]);
     const PostVillas=()=>{
       setuploadModal(true);
     }
     useEffect(() => {
       dispatch(fatchVillas());
-    }, []);
+    }, [dispatch]);
     let paymentDia=[];
 
     if(villas.bookingStatus.length!==0)
     paymentDia=villas.bookingStatus.filter(villa=>villa?.GuestId===user?.user?.email);
     const notiFi=paymentDia?.filter(villa=>villa?.status || villa?.cancel);
-    console.log(notiFi);
+    const hostNoti=villas.bookingStatus.filter(villa=>villa?.hostId===user?.user?.email);
+    console.log(hostNoti)
     return (
         <div className="HomePage">
           <section className="HomePage_left">
               {user?.userDetails?.host && <Button variant="contained" color="primary" onClick={PostVillas}>
                   Post Villas&Apts
               </Button>}
-             {user?.userDetails?.host && villas?.bookingStatus 
-             && villas?.bookingStatus.map((book)=> <Notification className='show' book={book}/>)}
+             {hostNoti && hostNoti.map((book)=> <Notification className='show' book={book}/>)}
              {
-               notiFi && !user?.userDetails?.host ? notiFi.map((notiData,index)=><GuestNoti key={index} className="show" notiData={notiData}/>):''
+               notiFi ? notiFi.map((notiData,index)=><GuestNoti key={index} className="show" notiData={notiData}/>):''
             }
           </section>
           <section className="HomePage_right">

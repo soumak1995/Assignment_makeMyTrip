@@ -1,9 +1,9 @@
 import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import { Route, Switch,withRouter} from 'react-router-dom';
 import {fatchVillas,bookingStatus} from '../../actions/villasAction';
 import HomePage from './HomePage';
-import PaymentPage from '../PaymentPage';
+import PaymentPage from '../Payment/PaymentPage';
 function Villas(props) {
   const { path } = props.match;
   const user = useSelector(state =>state.userReducer);
@@ -14,8 +14,8 @@ function Villas(props) {
   useEffect(() => {
     if(user?.user?.email)
     dispatch(bookingStatus(user?.user?.email));
-
   }, [user])
+  
   return (
           <Switch>
               <Route 

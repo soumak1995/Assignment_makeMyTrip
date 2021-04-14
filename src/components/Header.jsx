@@ -12,13 +12,9 @@ import '../css/Header.css'
 function Header() {
     const {
         setOpenSignIn,
-        setOpenSignUp,
-        openSignIn,
-        openSignUp
+        setOpenSignUp
     }=useContext(Context);
     const user = useSelector(state =>state.userReducer);
-    console.log( openSignIn,
-        openSignUp)
     return (
         <nav className="header">
            <ul className="header_menu">

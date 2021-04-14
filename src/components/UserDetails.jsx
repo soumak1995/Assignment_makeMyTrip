@@ -56,7 +56,7 @@ const handleClose = () => {
 const classes = useStyles();
     return (
        
-            <MyModal open={userDetailsModal} handleClose={handleClose}>
+            <MyModal open={userDetailsModal} handleClose={handleClose} disableBackdropClick>
                 <form className="App__signup">
                 <center>
                 <img className="header_Image" 

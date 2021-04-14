@@ -14,7 +14,7 @@ import '../css/VillaCard.css';
 function VillaCard({villa}) {
     const user = useSelector(state =>state.userReducer);;
     const cottage = useSelector(state =>state.villaReducer);
-    const hostFlag=cottage?.villas?.find(k=>k.email===user?.user?.email);
+    const hostFlag=villa.email===user?.user?.email;
     const flag=cottage.bookingStatus?.find((v)=>v.id===villa.id);
     const dispatch=useDispatch();
     const history=useHistory();
@@ -26,7 +26,7 @@ function VillaCard({villa}) {
         e.preventDefault();
         dispatch(deleteVillas(villa.id));
     }
-
+     console.log(villa.email,user?.user?.email)
     return (
         <div className="villa_card">
             <div className="villa_card__imgdiv">
@@ -47,7 +47,7 @@ function VillaCard({villa}) {
                    <span>Couple Friendly</span>
                </div>}
                <img className="villa_card__promo" src="https://promos.makemytrip.com/Hotels_product/Persuasion_Icons/MySafety3x.png" alt="promo"/>
-               <a href="#" className="villa_card__msg">Self certified by property</a>
+               <small className="villa_card__msg">Self certified by property</small>
                <section className="villa_card__feature">
                     {villa.feachers?.LivingRoom && <div className="center_align margin_left_right">
                         <BathtubIcon/>
@@ -82,7 +82,7 @@ function VillaCard({villa}) {
                 color="primary" onClick={handleBooking}>Book Now</Button>:""
                 }
                 {user?.user?.email &&  hostFlag?<Button variant="outlined" 
-                color="secondary" onClick={handleRemove}>Remove</Button>:""
+                    color="secondary" onClick={handleRemove}>Remove</Button>:""
                 }
                 {
                    user?.user?.email && flag ?<strong className="booking_status strong">BOOKED</strong>:""
