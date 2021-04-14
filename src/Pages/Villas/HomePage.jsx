@@ -4,7 +4,7 @@ import Login from '../../components/Login';
 import SignUp from '../../components/SignUp';
 import {Context} from '../../contextApi/context';
 import {auth} from '../../firebse';
-import {authUser} from '../../actions/userActions';
+import {authUser,addUserDetails} from '../../actions/userActions';
 import{fatchVillas} from '../../actions/villasAction'
 import UserDetails from '../../components/UserDetails';
 import Button from '@material-ui/core/Button';
@@ -33,6 +33,7 @@ function HomePage() {
              dispatch(authUser(User)) 
            }else{
              dispatch(authUser(null)) 
+             dispatch(addUserDetails([]))
            }
          });
          return ()=>{
@@ -87,4 +88,4 @@ function HomePage() {
 
 
 
-export default React.memo(HomePage)
+export default HomePage
