@@ -36,6 +36,8 @@ function PaymentCard({villaDetals}) {
                 GuestId:user?.user?.email,
                 status:false,
                 cancel:false,
+                notificationClose:false,
+                guestNotiClose:false,
                 id:villaDetals?.id
             }).then(response=>{
                 dispatch(addBooking({
@@ -48,6 +50,8 @@ function PaymentCard({villaDetals}) {
                     GuestId:user?.user?.email,
                     status:false,
                     cancel:false,
+                    notificationClose:false,
+                    guestNotiClose:false,
                     NameOfVilla:villaDetals?.NameOfVilla,
                     id:villaDetals?.id
                 }));

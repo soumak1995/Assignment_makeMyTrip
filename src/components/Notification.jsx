@@ -9,7 +9,9 @@ function Notification({className,book}) {
         dispatch(updateDoc({
             id:book.docId,
             status:true,
-            cancel:false
+            cancel:false,
+            notificationClose:true,
+            guestNotiClose:book.guestNotiClose
         }))
     }
     const handleCancel=()=>{
@@ -17,11 +19,15 @@ function Notification({className,book}) {
             id:book.docId,
             status:false,
             cancel:true,
+            notificationClose:true,
+            guestNotiClose:book.guestNotiClose
         }))
         
     }
     return (
-        <NotificationWrapper className={className}>
+        <NotificationWrapper className={className} 
+        notificationClose={book.notificationClose}
+        handleCancel={handleCancel}>
             
               <div>
                   <label>Property Name</label>

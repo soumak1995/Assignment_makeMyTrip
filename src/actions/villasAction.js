@@ -41,8 +41,10 @@ export const addBookingStatus = (bookingStatus) => ({
 
  export const updateDoc = (obj) => (dispatch) => {
     return db.collection("Bookings").doc(obj.id).update({
-        status:obj.status,
-        cancel:obj.cancel
+        status:obj?.status,
+        cancel:obj?.cancel,
+        notificationClose:obj?.notificationClose,
+        guestNotiClose:obj?.guestNotiClose
     })
     .catch(err=>alert(err))
   

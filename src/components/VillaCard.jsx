@@ -26,7 +26,7 @@ function VillaCard({villa}) {
         e.preventDefault();
         dispatch(deleteVillas(villa.id));
     }
-     console.log(villa.email,user?.user?.email)
+     console.log(flag)
     return (
         <div className="villa_card">
             <div className="villa_card__imgdiv">
@@ -81,11 +81,14 @@ function VillaCard({villa}) {
                 {user?.user?.email && !flag && !hostFlag?<Button variant="outlined" 
                 color="primary" onClick={handleBooking}>Book Now</Button>:""
                 }
+                {user?.user?.email && flag?.cancel && !hostFlag?<Button variant="outlined" 
+                color="primary" onClick={handleBooking}>Book Now</Button>:""
+                }
                 {user?.user?.email &&  hostFlag?<Button variant="outlined" 
                     color="secondary" onClick={handleRemove}>Remove</Button>:""
                 }
                 {
-                   user?.user?.email && flag ?<strong className="booking_status strong">BOOKED</strong>:""
+                   user?.user?.email && flag && !flag?.cancel?<strong className="booking_status strong">BOOKED</strong>:""
                 }
            </section>
         </div>

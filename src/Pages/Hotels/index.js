@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch,withRouter} from 'react-router-dom';
 import Hotels from '../Hotels/Hotels'
-function Villas(props) {
+function HotelsRoot(props) {
   const { path } = props.match;
 
   return (
@@ -15,5 +15,5 @@ function Villas(props) {
          </Switch>
   );
 }
-export default withRouter(Villas);
+export default withRouter(HotelsRoot);
 
